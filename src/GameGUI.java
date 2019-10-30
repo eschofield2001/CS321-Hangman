@@ -7,6 +7,7 @@ public class GameGUI {
 
         //idk if this is a valid way to do this, but this chunk of code is meant to keep the program from continuing
         // while the frame is active
+        // This seems to work
         int hold = 0;
         do {
             if (test.isThemeMenuActive()) {
