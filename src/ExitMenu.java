@@ -58,7 +58,7 @@ public class ExitMenu {
             //Quit Game button set up
             JButton quitButton = new JButton("Quit Game");
             exitMenu.add(quitButton);
-            quitButton.addActionListener(new quitGame() {
+            quitButton.addActionListener(new endGame() {
                 public void actionPerformed(ActionEvent event) {
                     exitOption = 4;
                     exitMenu.dispose();
@@ -74,17 +74,19 @@ public class ExitMenu {
         }
 
         /**
-         * The purpose of this method is to return whether or not themeMenu is still active.
-         * This can be used to prevent the main program from continuing its execution while themeMenu is still open.
-         * @return boolean, true if themeMenu is active, false if it isn't
+         * The purpose of this method is to return whether or not exitMenu is still active.
+         * This can be used to prevent the main program from continuing its execution while exitMenu is still open.
+         * @return boolean, true if exitMenu is active, false if it isn't
          */
         public boolean isExitMenuActive(){
             return exitMenu.isActive();
         }
 
-        static class quitGame implements ActionListener{
+        public class endGame implements ActionListener{
 
             public void actionPerformed(ActionEvent e){
+
+                exitOption = 4;
                 System.exit(0);
             }
 
@@ -96,6 +98,19 @@ public class ExitMenu {
         public int getExit(){
             return exitOption;
         }
+        /**
+         * This will allow the user to play again
+         */
+       //public void playAgain(Hangman h, WordList w){
+
+       // }
+        /**
+        * This will allow the user to go back to the start menu
+        */
+       /*
+        public void goToStart(StartMenu s){
+
+        }*/
 
     }
 
