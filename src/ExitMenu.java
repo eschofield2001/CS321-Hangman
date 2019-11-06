@@ -25,7 +25,8 @@ public class ExitMenu {
          */
         public void presentExitMenu(){
 
-            //Back to Game button set up
+            // Back to Game button set up
+            // essentially just closes the window
             JButton backButton = new JButton("Back to Game");
             exitMenu.add(backButton);
             backButton.addActionListener(new ActionListener(){
@@ -35,7 +36,8 @@ public class ExitMenu {
                 }
             });
 
-            //Play Again button set up
+            // Play Again button set up
+            // will start a new game
             JButton playAgainButton = new JButton("Play Again");
             exitMenu.add(playAgainButton);
             playAgainButton.addActionListener(new ActionListener(){
@@ -45,7 +47,8 @@ public class ExitMenu {
                 }
             });
 
-            //Go to Menu button set up
+            // Go to Menu button set up
+            // Goes back to the menu to start over
             JButton goToMenuButton = new JButton("Go to Menu");
             exitMenu.add(goToMenuButton);
             goToMenuButton.addActionListener(new ActionListener(){
@@ -55,7 +58,8 @@ public class ExitMenu {
                 }
             });
 
-            //Quit Game button set up
+            // Quit Game button set up
+            // Quits the program
             JButton quitButton = new JButton("Quit Game");
             exitMenu.add(quitButton);
             quitButton.addActionListener(new endGame() {
@@ -82,15 +86,20 @@ public class ExitMenu {
             return exitMenu.isActive();
         }
 
+
         public class endGame implements ActionListener{
+            /**
+             * The purpose of this method is to quit the program.
+             * This is called when the user clicks the "Quit Game" button
+             * @param e the event
+             */
+                public void actionPerformed(ActionEvent e){
 
-            public void actionPerformed(ActionEvent e){
+                    exitOption = 4;
+                    System.exit(0);
+                }
 
-                exitOption = 4;
-                System.exit(0);
             }
-
-        }
         /**
          * This method returns the user's choice
          * @return exitOption, an integer corresponding to the user's exitMenu choice
