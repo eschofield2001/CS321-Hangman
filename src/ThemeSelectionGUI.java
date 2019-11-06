@@ -18,7 +18,7 @@ public class ThemeSelectionGUI {
      * This method is responsible for displaying the menu and storing the user's selection.
      */
     public void displayThemeMenu(){
-        String[] options = {"Classic", "Multi-player", "Under the Sea", "Halloween"};
+        java.lang.String[] options = {"Classic", "Multi-player", "Under the Sea", "Halloween"};
         JComboBox themes = new JComboBox(options);
 
         JOptionPane.showMessageDialog(null, themes, "Select Theme", JOptionPane.QUESTION_MESSAGE);

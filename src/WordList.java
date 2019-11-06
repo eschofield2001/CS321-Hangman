@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class WordList {
@@ -83,12 +84,8 @@ public class WordList {
      */
     public void setRandomWord(){
         //sets word to a random word from the list
-        int random = -1;
-        int max = wordList.size() - 1;
-        int min = 0;
-        random = (int)(Math.random() * ((max - min) + 1)) + min; //this line is supposed to find a random number between 0 and the max index of wordList
-
-        word = wordList.get(random);
+        Random r = new Random();
+        word = wordList.get(r.nextInt(wordList.size()));
     }
 
     /**
