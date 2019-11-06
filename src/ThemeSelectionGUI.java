@@ -10,15 +10,15 @@ public class ThemeSelectionGUI {
     /**
      * Constructor for ThemeSelectionGUI that initializes themeChoice to -1
      */
-    ThemeSelectionGUI() {
+    ThemeSelectionGUI(){
         themeChoice = -1;
     }
 
     /**
      * This method is responsible for displaying the menu and storing the user's selection.
      */
-    public void displayThemeMenu() {
-        String[] options = {"Classic", "Multiplayer", "Under the Sea", "Halloween"};
+    public void displayThemeMenu(){
+        String[] options = {"Classic", "Multi-player", "Under the Sea", "Halloween"};
         JComboBox themes = new JComboBox(options);
 
         JOptionPane.showMessageDialog(null, themes, "Select Theme", JOptionPane.QUESTION_MESSAGE);
@@ -28,10 +28,11 @@ public class ThemeSelectionGUI {
 
     /**
      * This method returns the user's choice of theme to initialize the animations in GameGUI and the list to be used by WordList
-     *
      * @return themeChoice, an integer corresponding to the user's theme choice
      */
-    public int getThemeChoice() {
+    public int getThemeChoice(){
         return themeChoice;
     }
+
 }
+
