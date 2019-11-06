@@ -30,7 +30,7 @@ public class GameGUI {
         //Third: Set up animations based on userTheme
         final MoveableShape shapeEAST = new BubbleShape((ICON_WIDTH - SHAPE_WIDTH)/2, ICON_HEIGHT, SHAPE_WIDTH);
         ShapeIcon iconEAST = new ShapeIcon(shapeEAST, ICON_WIDTH, ICON_HEIGHT);
-        final MoveableShape shapeWEST = new BubbleShape((FRAME_WIDTH - SHAPE_WIDTH)/2, ICON_HEIGHT, SHAPE_WIDTH);
+        final MoveableShape shapeWEST = new BubbleShape((ICON_WIDTH - SHAPE_WIDTH)/2, ICON_HEIGHT, SHAPE_WIDTH);
         ShapeIcon iconWEST = new ShapeIcon(shapeEAST, ICON_WIDTH, ICON_HEIGHT );
 
         final JLabel labelEast = new JLabel(iconEAST);
