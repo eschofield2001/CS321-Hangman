@@ -30,7 +30,7 @@ public class ExitMenu {
      * This method returns the user's choice to GameGUI to control the flow of the game
      * @return exitChoice, an integer corresponding to the user's exit menu choice
      */
-    public int getThemeChoice(){
+    public int getExitChoice(){
         return exitChoice;
     }
 
