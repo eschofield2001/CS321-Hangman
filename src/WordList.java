@@ -85,7 +85,7 @@ public class WordList {
     public void setRandomWord(){
         //sets word to a random word from the list
         Random r = new Random();
-        word = wordList.get(r.nextInt(wordList.size()));
+        word = wordList.get(Math.abs(r.nextInt(wordList.size())));
     }
 
     /**

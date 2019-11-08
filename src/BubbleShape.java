@@ -43,7 +43,7 @@ public class BubbleShape implements MoveableShape {
 
     @Override
     public void draw(Graphics2D g2) {
-        Ellipse2D.Double bubble = new Ellipse2D.Double(x, y, width/2, width/2);
+        Ellipse2D.Double bubble = new Ellipse2D.Double(x, y, width, width);
         g2.setColor(Color.BLUE);
         g2.fill(bubble);
     }
