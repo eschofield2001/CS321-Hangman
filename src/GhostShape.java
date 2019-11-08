@@ -29,8 +29,8 @@ public class GhostShape implements MoveableShape {
     public void draw(Graphics2D g2) {
         Ellipse2D.Double head = new Ellipse2D.Double(x, y, width, width);
         Rectangle2D.Double body = new Rectangle2D.Double(x, y + width/2, width, 3*height/5);
-        Ellipse2D.Double leftEye = new Ellipse2D.Double(x, y + width/2, width/3, height/5);
-        Ellipse2D.Double rightEye = new Ellipse2D.Double(x + 2*width/3, y + width/2, width/3, height/5);
+        Ellipse2D.Double leftEye = new Ellipse2D.Double(x + width/5, y + width/2, width/5, height/5);
+        Ellipse2D.Double rightEye = new Ellipse2D.Double(x + 3*width/5, y + width/2, width/5, height/5);
         g2.setColor(Color.WHITE);
         g2.fill(head);
         g2.fill(body);
