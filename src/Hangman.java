@@ -23,12 +23,10 @@ public class Hangman {
     /**
      * Initializes the attributes af a Hangman using the information of a WordList.
      */
-    public void initializeHangman(/*WordList w */) {
-        /*
+    public void initializeHangman(WordList w ) {
         gWord = w.getWord();
         numLimbs = 0;
         blanks = w.getBlanks();
-         */
     }
 
     /**
@@ -46,12 +44,12 @@ public class Hangman {
     }
 
     /**
-     * Updates blanks with char c that correspond to gWord.
-     * @param c char used to update blanks.
+     * Updates blanks with Character c that correspond to gWord.
+     * @param c Character used to update blanks.
      */
-    public void updateBlanks(char c) {
+    public void updateBlanks(Character c) {
         for(int i = 0; i < gWord.length(); i++) {
-            if(c == gWord.charAt(i))
+            if(Character.toUpperCase(c) == Character.toUpperCase(gWord.charAt(i)))
                 blanks.set(i, c);
         }
     }
@@ -64,10 +62,10 @@ public class Hangman {
     }
 
     /**
-     * Adds char c to boxLetters.
-     * @param c char to be added to boxLetters.
+     * Adds Character c to boxLetters.
+     * @param c Character to be added to boxLetters.
      */
-    public void updateBox(char c) {
+    public void updateBox(Character c) {
         boxLetters.add(c);
     }
 
@@ -95,12 +93,12 @@ public class Hangman {
 
     /**
      * Checks if char c is present anywhere in gWord.
-     * @param c char that is used to check gWOrd.
+     * @param c char that is used to check gWord.
      * @return true if char c is found anywhere in gWord or false otherwise.
      */
-    public boolean isLetterPresent(char c) {
+    public boolean isLetterPresent(Character c) {
         for(int i = 0; i < gWord.length(); i++) {
-            if(c == gWord.charAt(i))
+            if(Character.toUpperCase(c) == Character.toUpperCase(gWord.charAt(i)))
                 return true;
         }
         return false;
