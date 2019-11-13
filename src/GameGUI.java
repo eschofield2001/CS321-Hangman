@@ -4,6 +4,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 public class GameGUI {
+
     public static void main(String[] args){
         int userTheme = -1;
         String gameWord = null;
@@ -33,10 +34,12 @@ public class GameGUI {
             final MoveableShape shapeEAST;
             final MoveableShape shapeWEST;
             if(userTheme == 2){
-                shapeEAST = new BubbleShape((ICON_WIDTH - SHAPE_WIDTH)/2, ICON_HEIGHT, SHAPE_WIDTH);
-                shapeWEST = new BubbleShape((ICON_WIDTH - SHAPE_WIDTH)/2, ICON_HEIGHT, SHAPE_WIDTH);
+                //frame.setBackground(new Color(0, 102, 204));
+                shapeEAST = new BubbleShape((ICON_WIDTH - SHAPE_WIDTH)/2, ICON_HEIGHT, SHAPE_WIDTH, SHAPE_HEIGHT);
+                shapeWEST = new BubbleShape((ICON_WIDTH - SHAPE_WIDTH)/2, ICON_HEIGHT, SHAPE_WIDTH, SHAPE_HEIGHT);
             }
             else{
+                //frame.setBackground(new Color(102, 0, 102));
                 shapeEAST = new GhostShape((ICON_WIDTH - SHAPE_WIDTH)/2, ICON_HEIGHT, SHAPE_WIDTH, SHAPE_HEIGHT);
                 shapeWEST = new GhostShape((ICON_WIDTH - SHAPE_WIDTH)/2, ICON_HEIGHT, SHAPE_WIDTH, SHAPE_HEIGHT);
             }
@@ -49,7 +52,7 @@ public class GameGUI {
             frame.add(labelEast, BorderLayout.EAST);
             frame.add(labelWest, BorderLayout.WEST);
 
-            final int DELAY = 100;
+            final int DELAY = 50;
             Timer t = new Timer(DELAY, new ActionListener(){
                 public void actionPerformed(ActionEvent event){
                     if(shapeEAST.getY() == 0){
