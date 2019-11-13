@@ -7,8 +7,10 @@ public class GameGUI {
 
     public static void main(String[] args){
         int userTheme = -1;
-        String gameWord = null;
+        Hangman hangman = new Hangman();
+        HangmanGUI hangmanGUI = new HangmanGUI();
         ArrayList<Character> blanks = new ArrayList<>();
+        ExitMenu exit = new ExitMenu();
 
         //Set up frame
         JFrame frame = new JFrame("Hangman", null);
@@ -26,8 +28,6 @@ public class GameGUI {
         WordList words = new WordList();
         words.setGameList(userTheme);
         words.setRandomWord();
-        gameWord = words.getWord();
-        blanks = words.getBlanks();
 
         //Third: Set up animations based on userTheme
         if(userTheme == 2 || userTheme ==3){
@@ -54,12 +54,20 @@ public class GameGUI {
 
             final int DELAY = 50;
             Timer t = new Timer(DELAY, new ActionListener(){
+                int counter = 0;
+                int dx = 1;
+
                 public void actionPerformed(ActionEvent event){
+                    if(counter == 20){
+                        dx *= -1;
+                        counter = 0;
+                    }
                     if(shapeEAST.getY() == 0){
                         shapeEAST.setY(400);
                     }
-                    shapeEAST.translate(0,-1);
+                    shapeEAST.translate(dx,-1);
                     labelEast.repaint();
+                    counter++;
                 }
             });
             t.start();
@@ -78,15 +86,89 @@ public class GameGUI {
 
         //Fourth: Add control buttons & panel
         JButton exitButton = new JButton("Exit");
-            //add listener to display ExitMenu
-
-        JButton enterButton = new JButton("Enter");
-            //add listener to confirm input
+        exitButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int exitChoice = -1;
+                exit.presentExitMenu();
+                exitChoice = exit.getExitChoice();
+                switch (exitChoice){
+                    case 0:
+                        words.setRandomWord();
+                        hangman.initializeHangman(words);
+                        break;
+                    case 2:
+                        //i don't know how to implement this yet
+                        break;
+                    case 3:
+                        System.exit(0);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
 
         final int FIELD_WIDTH = 10;
         JTextField inputText = new JTextField(FIELD_WIDTH);
         inputText.setText("Input");
-            //add listener to store input
+
+        JButton enterButton = new JButton("Enter");
+        enterButton.addActionListener(new ActionListener(){
+           public void actionPerformed(ActionEvent e){
+               //PROBLEM HERE - WILL FIX LATER
+               boolean inWord = hangman.isLetterPresent((inputText.getText().charAt(0)));
+               if(inWord == true){
+                   hangman.updateBlanks(inputText.getText().charAt(0));
+                   /*finish when HangmanGUI is done
+                   hangmanGUI.updateCorrect();*/
+                   if(hangman.isBlanksFull() == true){
+                       int exitChoice = -1;
+                       exit.presentExitMenuWin();
+                       exitChoice = exit.getExitChoice();
+                       switch (exitChoice){
+                           case 0:
+                               words.setRandomWord();
+                               hangman.initializeHangman(words);
+                               break;
+                           case 2:
+                               //i don't know how to implement this yet
+                               break;
+                           case 3:
+                               System.exit(0);
+                               break;
+                           default:
+                               break;
+                       }
+                   }
+               }
+               else{
+                   hangman.updateBox(inputText.getText().charAt(0));
+                   hangman.updateLimbs();
+                   /*finish when HangmanGUI is done
+                   hangmanGUI.updateIncorrect();*/
+                   if(hangman.isHangmanComplete() == true){
+                       int exitChoice = -1;
+                       exit.presentExitMenuLose();
+                       exitChoice = exit.getExitChoice();
+                       switch (exitChoice){
+                           case 0:
+                               words.setRandomWord();
+                               hangman.initializeHangman(words);
+                               break;
+                           case 2:
+                               //i don't know how to implement this yet
+                               break;
+                           case 3:
+                               System.exit(0);
+                               break;
+                           default:
+                               break;
+                       }
+                   }
+               }
+           }
+        });
 
         JPanel flowLayout = new JPanel();
         flowLayout.add(exitButton);
