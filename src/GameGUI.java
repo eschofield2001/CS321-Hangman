@@ -73,6 +73,25 @@ public class GameGUI {
             t2.start();
         }
 
+        //Fourth: Add control buttons & panel
+        JButton exitButton = new JButton("Exit");
+            //add listener to display ExitMenu
+
+        JButton enterButton = new JButton("Enter");
+            //add listener to confirm input
+
+        final int FIELD_WIDTH = 10;
+        JTextField inputText = new JTextField(FIELD_WIDTH);
+        inputText.setText("Input");
+            //add listener to store input
+
+        JPanel flowLayout = new JPanel();
+        flowLayout.add(exitButton);
+        flowLayout.add(inputText);
+        flowLayout.add(enterButton);
+
+
+        frame.add(flowLayout, BorderLayout.SOUTH);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setLocationRelativeTo(null);
