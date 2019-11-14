@@ -43,8 +43,8 @@ public class GameGUI {
             final MoveableShape shapeWEST;
             if(userTheme == 2){
                 //frame.setBackground(new Color(0, 102, 204));
-                shapeEAST = new BubbleShape((ICON_WIDTH - SHAPE_WIDTH)/2, ICON_HEIGHT, SHAPE_WIDTH, SHAPE_HEIGHT);
-                shapeWEST = new BubbleShape((ICON_WIDTH - SHAPE_WIDTH)/2, ICON_HEIGHT, SHAPE_WIDTH, SHAPE_HEIGHT);
+                shapeEAST = new BubbleShape((ICON_WIDTH - SHAPE_WIDTH)/2, ICON_HEIGHT, SHAPE_WIDTH, SHAPE_WIDTH);
+                shapeWEST = new BubbleShape((ICON_WIDTH - SHAPE_WIDTH)/2, ICON_HEIGHT, SHAPE_WIDTH, SHAPE_WIDTH);
             }
             else{
                 //frame.setBackground(new Color(102, 0, 102));
@@ -135,60 +135,68 @@ public class GameGUI {
         JButton enterButton = new JButton("Enter");
         enterButton.addActionListener(new ActionListener(){
            public void actionPerformed(ActionEvent e){
-               //PROBLEM HERE - WILL FIX LATER
-               boolean inWord = hangman.isLetterPresent((inputText.getText().charAt(0)));
-               if(inWord){
-                   hangman.updateBlanks(inputText.getText().charAt(0));
-                   /*finish when HangmanGUI is done
-                   hangmanGUI.updateCorrect();*/
-                   if(hangman.isBlanksFull()){
-                       int exitChoice;
-                       exit.presentExitMenuWin();
-                       exitChoice = exit.getExitChoice();
-                       switch (exitChoice){
-                           case 0:
-                               if(userTheme == 1){
-                                   words.setGameList(userTheme);
-                               }
-                               words.setRandomWord();
-                               hangman.initializeHangman(words);
-                               break;
-                           case 2:
-                               //i don't know how to implement this yet
-                               break;
-                           case 3:
-                               System.exit(0);
-                               break;
-                           default:
-                               break;
-                       }
-                   }
+               if((inputText.getText().length() > 1)){
+                   JOptionPane.showMessageDialog(null, "Please only enter one letter at a time.");
+               }
+               else if(!Character.isLetter(inputText.getText().charAt(0))){
+                   JOptionPane.showMessageDialog(null, "Please only enter letters.");
                }
                else{
-                   hangman.updateBox(inputText.getText().charAt(0));
-                   hangman.updateLimbs();
+                   boolean inWord = hangman.isLetterPresent((inputText.getText().charAt(0)));
+                   if(inWord){
+                       //System.out.println(inputText.getText().charAt(0)); for testing
+                       hangman.updateBlanks(inputText.getText().charAt(0));
+                   /*finish when HangmanGUI is done
+                   hangmanGUI.updateCorrect();*/
+                       if(hangman.isBlanksFull()){
+                           int exitChoice;
+                           exit.presentExitMenuWin();
+                           exitChoice = exit.getExitChoice();
+                           switch (exitChoice){
+                               case 0:
+                                   if(userTheme == 1){
+                                       words.setGameList(userTheme);
+                                   }
+                                   words.setRandomWord();
+                                   hangman.initializeHangman(words);
+                                   break;
+                               case 2:
+                                   //i don't know how to implement this yet
+                                   break;
+                               case 3:
+                                   System.exit(0);
+                                   break;
+                               default:
+                                   break;
+                           }
+                       }
+                   }
+                   else{
+                       hangman.updateBox(inputText.getText().charAt(0));
+                       hangman.updateLimbs();
                    /*finish when HangmanGUI is done
                    hangmanGUI.updateIncorrect();*/
-                   if(hangman.isHangmanComplete()){
-                       int exitChoice;
-                       exit.presentExitMenuLose();
-                       exitChoice = exit.getExitChoice();
-                       switch (exitChoice){
-                           case 0:
-                               if(userTheme == 1){
-                                   words.setGameList(userTheme);
-                               }
-                               words.setRandomWord();
-                               hangman.initializeHangman(words);
-                               break;
-                           case 2:
-                               //i don't know how to implement this yet
-                               break;
-                           case 3:
-                               System.exit(0);
-                               break;
-                           default:
-                               break;
+                       if(hangman.isHangmanComplete()){
+                           int exitChoice;
+                           exit.presentExitMenuLose();
+                           exitChoice = exit.getExitChoice();
+                           switch (exitChoice){
+                               case 0:
+                                   if(userTheme == 1){
+                                       words.setGameList(userTheme);
+                                   }
+                                   words.setRandomWord();
+                                   hangman.initializeHangman(words);
+                                   break;
+                               case 2:
+                                   //i don't know how to implement this yet
+                                   break;
+                               case 3:
+                                   System.exit(0);
+                                   break;
+                               default:
+                                   break;
+                           }
                        }
                    }
                }
