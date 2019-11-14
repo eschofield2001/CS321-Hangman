@@ -31,13 +31,13 @@ public interface MoveableShape {
     int getY();
 
     /**
-     * Sets x-coordinate to num
+     * Sets x-coordinate equal to num
      * @param num new x-coordinate
      */
     void setX(int num);
 
     /**
-     * Sets y-coordinate to num
+     * Sets y-coordinate equal to num
      * @param num new y-coordinate
      */
     void setY(int num);

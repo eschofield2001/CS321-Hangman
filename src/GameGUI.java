@@ -3,10 +3,16 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
+/**
+ * This class is the main controller for the project. It pieces together all of the components all controls the flow of the game.
+ */
 public class GameGUI {
 
+    /**
+     * This method is responsible for putting together all of the components of the project and controlling the flow of the game.
+     */
     public static void main(String[] args){
-        int userTheme = -1;
+        int userTheme;
         Hangman hangman = new Hangman();
         HangmanGUI hangmanGUI = new HangmanGUI();
         ArrayList<Character> blanks = new ArrayList<>();
@@ -28,6 +34,8 @@ public class GameGUI {
         WordList words = new WordList();
         words.setGameList(userTheme);
         words.setRandomWord();
+
+        hangman.initializeHangman(words);
 
         //Third: Set up animations based on userTheme
         if(userTheme == 2 || userTheme ==3){
@@ -54,31 +62,39 @@ public class GameGUI {
 
             final int DELAY = 50;
             Timer t = new Timer(DELAY, new ActionListener(){
+                    int counter = 0;
+                    int dx = 1;
+
+                    public void actionPerformed(ActionEvent event){
+                        if(counter == 20){
+                            dx *= -1;
+                            counter = 0;
+                        }
+                        if(shapeEAST.getY() == 0){
+                            shapeEAST.setY(400);
+                        }
+                        shapeEAST.translate(dx,-1);
+                        labelEast.repaint();
+                        counter++;
+                }
+            });
+            t.start();
+
+            Timer t2 = new Timer(DELAY, new ActionListener(){
                 int counter = 0;
-                int dx = 1;
+                int dx = -1;
 
                 public void actionPerformed(ActionEvent event){
                     if(counter == 20){
                         dx *= -1;
                         counter = 0;
                     }
-                    if(shapeEAST.getY() == 0){
-                        shapeEAST.setY(400);
-                    }
-                    shapeEAST.translate(dx,-1);
-                    labelEast.repaint();
-                    counter++;
-                }
-            });
-            t.start();
-
-            Timer t2 = new Timer(DELAY, new ActionListener(){
-                public void actionPerformed(ActionEvent event){
                     if(shapeWEST.getY() == 0){
                         shapeWEST.setY(400);
                     }
-                    shapeWEST.translate(0,-1);
+                    shapeWEST.translate(dx,-1);
                     labelWest.repaint();
+                    counter++;
                 }
             });
             t2.start();
@@ -89,11 +105,14 @@ public class GameGUI {
         exitButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                int exitChoice = -1;
+                int exitChoice;
                 exit.presentExitMenu();
                 exitChoice = exit.getExitChoice();
                 switch (exitChoice){
                     case 0:
+                        if(userTheme == 1){
+                            words.setGameList(userTheme);
+                        }
                         words.setRandomWord();
                         hangman.initializeHangman(words);
                         break;
@@ -118,16 +137,19 @@ public class GameGUI {
            public void actionPerformed(ActionEvent e){
                //PROBLEM HERE - WILL FIX LATER
                boolean inWord = hangman.isLetterPresent((inputText.getText().charAt(0)));
-               if(inWord == true){
+               if(inWord){
                    hangman.updateBlanks(inputText.getText().charAt(0));
                    /*finish when HangmanGUI is done
                    hangmanGUI.updateCorrect();*/
-                   if(hangman.isBlanksFull() == true){
-                       int exitChoice = -1;
+                   if(hangman.isBlanksFull()){
+                       int exitChoice;
                        exit.presentExitMenuWin();
                        exitChoice = exit.getExitChoice();
                        switch (exitChoice){
                            case 0:
+                               if(userTheme == 1){
+                                   words.setGameList(userTheme);
+                               }
                                words.setRandomWord();
                                hangman.initializeHangman(words);
                                break;
@@ -147,12 +169,15 @@ public class GameGUI {
                    hangman.updateLimbs();
                    /*finish when HangmanGUI is done
                    hangmanGUI.updateIncorrect();*/
-                   if(hangman.isHangmanComplete() == true){
-                       int exitChoice = -1;
+                   if(hangman.isHangmanComplete()){
+                       int exitChoice;
                        exit.presentExitMenuLose();
                        exitChoice = exit.getExitChoice();
                        switch (exitChoice){
                            case 0:
+                               if(userTheme == 1){
+                                   words.setGameList(userTheme);
+                               }
                                words.setRandomWord();
                                hangman.initializeHangman(words);
                                break;
@@ -167,6 +192,7 @@ public class GameGUI {
                        }
                    }
                }
+               inputText.setText("");
            }
         });
 

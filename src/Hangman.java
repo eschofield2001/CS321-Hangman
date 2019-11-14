@@ -17,7 +17,7 @@ public class Hangman {
         numLimbs = 0;
         boxLetters = new ArrayList<>();
         blanks = new ArrayList<>();
-        gWord = null;
+        gWord = "";
     }
 
     /**

@@ -25,6 +25,10 @@ public class GhostShape implements MoveableShape {
         this.height = height;
     }
 
+    /**
+     * This method is responsible for drawing the ghost
+     * @param g2 the graphics context
+     */
     @Override
     public void draw(Graphics2D g2) {
         Ellipse2D.Double head = new Ellipse2D.Double(x, y, width, width);
@@ -42,27 +46,48 @@ public class GhostShape implements MoveableShape {
         g2.fill(rightEye);
     }
 
+    /**
+     * Moves the ghost by a given amount
+     * @param dx the amount to translate in the x-direction
+     * @param dy the amount to translate in the y-direction
+     */
     @Override
     public void translate(int dx, int dy) {
         this.x += dx;
         this.y += dy;
     }
 
+    /**
+     * Returns x-coordinate
+     * @return current x-coordinate
+     */
     @Override
     public int getX() {
         return x;
     }
 
+    /**
+     * Returns y-coordinate
+     * @return current y-coordinate
+     */
     @Override
     public int getY() {
         return y;
     }
 
+    /**
+     * Sets x-coordinate equal to num
+     * @param num new x-coordinate
+     */
     @Override
     public void setX(int num) {
         x = num;
     }
 
+    /**
+     * Sets y-coordinate equal to num
+     * @param num new y-coordinate
+     */
     @Override
     public void setY(int num) {
         y = num;

@@ -5,23 +5,19 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * This class acts like a list of words and is responsible for initializing the list, picking a random word, and
+ * creating a list of blank characters for the word.
+ */
 public class WordList {
-    // WordList will have access to txt files containing words to guess
-    // Only exception is Multi-player
-    // Each txt file will be named after each theme
-    // txt files will be named Classic.txt, UnderTheSea.txt, and Halloween.txt
-
     //0-classic, 1-multiplayer, 2-under the sea, 3-halloween
-    private int theme;
     String word;
     ArrayList<String> wordList;
-
 
     /**
      * This is the constructor the for the WordList class, which initializes theme, word, and wordList.
      */
     public WordList(){
-        theme = -1;
         word = null;
         wordList = new ArrayList<String>();
     }
@@ -51,6 +47,7 @@ public class WordList {
             }
 
             try{
+                assert fileName != null;
                 infile = new FileReader(fileName);
             }
             catch(FileNotFoundException ex){

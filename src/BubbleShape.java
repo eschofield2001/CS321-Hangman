@@ -24,26 +24,46 @@ public class BubbleShape implements MoveableShape {
         this.height = height;
     }
 
+    /**
+     * Returns x-coordinate
+     * @return current x-coordinate
+     */
     @Override
     public int getX(){
         return x;
     }
 
+    /**
+     * Returns y-coordinate
+     * @return current y-coordinate
+     */
     @Override
     public int getY(){
         return y;
     }
 
+    /**
+     * Sets y-coordinate equal to num
+     * @param num new y-coordinate
+     */
     @Override
     public void setY(int num){
         this.y = num;
     }
 
+    /**
+     * Sets x-coordinate equal to num
+     * @param num new x-coordinate
+     */
     @Override
     public void setX(int num){
         this.x = num;
     }
 
+    /**
+     * Draws the bubble
+     * @param g2 the graphics context
+     */
     @Override
     public void draw(Graphics2D g2) {
         Ellipse2D.Double bubble = new Ellipse2D.Double(x, y, width, width);
@@ -53,6 +73,11 @@ public class BubbleShape implements MoveableShape {
         g2.fill(bubble);
     }
 
+    /**
+     * Moves the bubble by a given amount
+     * @param dx the amount to translate in the x-direction
+     * @param dy the amount to translate in the y-direction
+     */
     @Override
     public void translate(int dx, int dy) {
         x += dx;
