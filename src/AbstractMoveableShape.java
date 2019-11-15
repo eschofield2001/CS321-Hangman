@@ -3,6 +3,16 @@ public abstract class AbstractMoveableShape implements MoveableShape {
     private int y;
 
     /**
+     * Constructor for AbstractMoveableShape that initializes the x and y coordinates
+     * @param x x-coordinate
+     * @param y y0coordinate
+     */
+    public AbstractMoveableShape(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+
+    /**
      * Moves the Shape by a given amount
      * @param dx the amount to translate in the x-direction
      * @param dy the amount to translate in the y-direction

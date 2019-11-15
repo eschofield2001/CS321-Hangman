@@ -16,8 +16,7 @@ public class BubbleShape extends AbstractMoveableShape {
      * @param height the height of the bounding rectangle
      */
     public BubbleShape(int x, int y, int width, int height){
-        super.setX(x);
-        super.setY(y);
+        super(x, y);
         this.width = width;
         this.height = height;
     }
