@@ -35,12 +35,15 @@ public class Hangman {
     public void initializeHangmanStart() {
         gWord = "HangmanStart";
         numLimbs = 0;
-        blanks.add('H');
-        blanks.add('A');
-        blanks.add('N');
-        blanks.add('G');
-        for(int i = 1; i <= 8; i++)
+        for(int i = 0; i < gWord.length(); i++){
             blanks.add('_');
+        }
+        updateBlanks('H');
+        updateBlanks('A');
+        updateBlanks('N');
+        updateBlanks('G');
+        updateBlanks('M');
+
     }
 
     /**

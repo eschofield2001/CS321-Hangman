@@ -7,6 +7,147 @@ import java.awt.event.*;
  */
 public class GameGUI {
 
+    static public void setAnimations(JFrame frame, ThemeSelectionGUI themeMenu){
+        if(themeMenu.getThemeChoice() == 2 || themeMenu.getThemeChoice() == 3) {
+            final MoveableShape shapeEAST;
+            final MoveableShape shapeWEST;
+            if (themeMenu.getThemeChoice() == 2) {
+                shapeEAST = new BubbleShape((ICON_WIDTH - SHAPE_WIDTH) / 2, ICON_HEIGHT, SHAPE_WIDTH, SHAPE_WIDTH);
+                shapeWEST = new BubbleShape((ICON_WIDTH - SHAPE_WIDTH) / 2, ICON_HEIGHT, SHAPE_WIDTH, SHAPE_WIDTH);
+            } else {
+                shapeEAST = new GhostShape((ICON_WIDTH - SHAPE_WIDTH) / 2, ICON_HEIGHT, SHAPE_WIDTH, SHAPE_HEIGHT);
+                shapeWEST = new GhostShape((ICON_WIDTH - SHAPE_WIDTH) / 2, ICON_HEIGHT, SHAPE_WIDTH, SHAPE_HEIGHT);
+            }
+            ShapeIcon iconEAST = new ShapeIcon(shapeEAST, ICON_WIDTH, ICON_HEIGHT);
+            ShapeIcon iconWEST = new ShapeIcon(shapeWEST, ICON_WIDTH, ICON_HEIGHT);
+
+            final JLabel labelEast = new JLabel(iconEAST);
+            final JLabel labelWest = new JLabel(iconWEST);
+
+            frame.add(labelEast, BorderLayout.EAST);
+            frame.add(labelWest, BorderLayout.WEST);
+
+            final int DELAY = 50;
+            Timer t = new Timer(DELAY, new ActionListener() {
+                int counter = 0;
+                int dx = 1;
+
+                public void actionPerformed(ActionEvent event) {
+                    if (counter == 20) {
+                        dx *= -1;
+                        counter = 0;
+                    }
+                    if (shapeEAST.getY() == 0) {
+                        shapeEAST.setY(400);
+                    }
+                    shapeEAST.translate(dx, -1);
+                    labelEast.repaint();
+                    counter++;
+                }
+            });
+            t.start();
+
+            Timer t2 = new Timer(DELAY, new ActionListener() {
+                int counter = 0;
+                int dx = -1;
+
+                public void actionPerformed(ActionEvent event) {
+                    if (counter == 20) {
+                        dx *= -1;
+                        counter = 0;
+                    }
+                    if (shapeWEST.getY() == 0) {
+                        shapeWEST.setY(400);
+                    }
+                    shapeWEST.translate(dx, -1);
+                    labelWest.repaint();
+                    counter++;
+                }
+            });
+            t2.start();
+        }
+
+        frame.setLocationRelativeTo(null);
+        frame.pack();
+    }
+
+    static public void startGame(JFrame frame, WordList w, ThemeSelectionGUI themeMenu, Hangman h){
+        JFrame start = new JFrame("Hangman Start", null);
+        Dimension d = new Dimension();
+        d.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+        start.setSize(d);
+        start.setLayout(new BorderLayout());
+
+        h.initializeHangmanStart();
+
+        final int FIELD_WIDTH = 10;
+        JTextField inputText = new JTextField(FIELD_WIDTH);
+        inputText.setText("Input");
+
+        JButton enterButton = new JButton("Enter");
+        enterButton.addActionListener(e -> {
+            if((inputText.getText().length() > 1)){
+                JOptionPane.showMessageDialog(null, "Please only enter one letter at a time.");
+            }
+            else if(!Character.isLetter(inputText.getText().charAt(0))){
+                JOptionPane.showMessageDialog(null, "Please only enter letters.");
+            }
+            else{
+                boolean inWord = h.isLetterPresent((inputText.getText().charAt(0)));
+                if(inWord){
+                    //System.out.println(inputText.getText().charAt(0)); for testing
+                    h.updateBlanks(inputText.getText().charAt(0));
+                    //finish when HangmanGUI is done
+                    //hangmanGUI.updateCorrect();
+                    if(h.isBlanksFull()){
+                        start.dispose();
+
+                        themeMenu.displayThemeMenu();
+
+                        w.setGameList(themeMenu.getThemeChoice());
+                        w.setRandomWord();
+
+                        h.initializeHangman(w);
+
+                        setAnimations(frame, themeMenu);
+                        frame.setVisible(true);
+                    }
+                }
+                else{
+                    h.updateBox(inputText.getText().charAt(0));
+                    h.updateLimbs();
+                    //finish when HangmanGUI is done
+                    //hangmanGUI.updateIncorrect();
+                    if(h.isHangmanComplete()){
+                        start.dispose();
+
+                        themeMenu.displayThemeMenu();
+
+                        w.setGameList(themeMenu.getThemeChoice());
+                        w.setRandomWord();
+
+                        h.initializeHangman(w);
+
+                        setAnimations(frame, themeMenu);
+
+                        frame.setVisible(true);
+                    }
+                }
+            }
+            inputText.setText("");
+        });
+
+        JPanel flowLayout = new JPanel();
+        flowLayout.add(inputText);
+        flowLayout.add(enterButton);
+
+        start.add(flowLayout, BorderLayout.SOUTH);
+        start.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        start.pack();
+        start.setLocationRelativeTo(null);
+        start.setVisible(true);
+    }
+
     /**
      * This method is responsible for putting together all of the components of the project and controlling the flow of the game.
      */
@@ -16,92 +157,19 @@ public class GameGUI {
         //test.testWordList(); - success
         //test.testThemeSelectionGUI(); - success
         //test.testExitMenu(); - success
-        int userTheme;
         Hangman hangman = new Hangman();
         HangmanGUI hangmanGUI = new HangmanGUI();
         ExitMenu exit = new ExitMenu();
+        ThemeSelectionGUI themeMenu = new ThemeSelectionGUI();
+        WordList words = new WordList();
 
         //Set up frame
-        JFrame frame = new JFrame("Hangman", null);
+        JFrame frame = new JFrame ("Hangman", null);
         Dimension d = new Dimension();
         d.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         frame.setSize(d);
         frame.setLayout(new BorderLayout());
-
-        //First: Get userTheme
-        ThemeSelectionGUI themeMenu = new ThemeSelectionGUI();
-        themeMenu.displayThemeMenu();
-        userTheme = themeMenu.getThemeChoice();
-
-        //Second: Get WordList setup
-        WordList words = new WordList();
-        words.setGameList(userTheme);
-        words.setRandomWord();
-
-        hangman.initializeHangman(words);
-
-        //Third: Set up animations based on userTheme
-        if(userTheme == 2 || userTheme ==3){
-            final MoveableShape shapeEAST;
-            final MoveableShape shapeWEST;
-            if(userTheme == 2){
-                //frame.setBackground(new Color(0, 102, 204));
-                shapeEAST = new BubbleShape((ICON_WIDTH - SHAPE_WIDTH)/2, ICON_HEIGHT, SHAPE_WIDTH, SHAPE_WIDTH);
-                shapeWEST = new BubbleShape((ICON_WIDTH - SHAPE_WIDTH)/2, ICON_HEIGHT, SHAPE_WIDTH, SHAPE_WIDTH);
-            }
-            else{
-                //frame.setBackground(new Color(102, 0, 102));
-                shapeEAST = new GhostShape((ICON_WIDTH - SHAPE_WIDTH)/2, ICON_HEIGHT, SHAPE_WIDTH, SHAPE_HEIGHT);
-                shapeWEST = new GhostShape((ICON_WIDTH - SHAPE_WIDTH)/2, ICON_HEIGHT, SHAPE_WIDTH, SHAPE_HEIGHT);
-            }
-            ShapeIcon iconEAST = new ShapeIcon(shapeEAST, ICON_WIDTH, ICON_HEIGHT);
-            ShapeIcon iconWEST = new ShapeIcon(shapeWEST, ICON_WIDTH, ICON_HEIGHT );
-
-            final JLabel labelEast = new JLabel(iconEAST);
-            final JLabel labelWest = new JLabel(iconWEST);
-
-            frame.add(labelEast, BorderLayout.EAST);
-            frame.add(labelWest, BorderLayout.WEST);
-
-            final int DELAY = 50;
-            Timer t = new Timer(DELAY, new ActionListener(){
-                    int counter = 0;
-                    int dx = 1;
-
-                    public void actionPerformed(ActionEvent event){
-                        if(counter == 20){
-                            dx *= -1;
-                            counter = 0;
-                        }
-                        if(shapeEAST.getY() == 0){
-                            shapeEAST.setY(400);
-                        }
-                        shapeEAST.translate(dx,-1);
-                        labelEast.repaint();
-                        counter++;
-                }
-            });
-            t.start();
-
-            Timer t2 = new Timer(DELAY, new ActionListener(){
-                int counter = 0;
-                int dx = -1;
-
-                public void actionPerformed(ActionEvent event){
-                    if(counter == 20){
-                        dx *= -1;
-                        counter = 0;
-                    }
-                    if(shapeWEST.getY() == 0){
-                        shapeWEST.setY(400);
-                    }
-                    shapeWEST.translate(dx,-1);
-                    labelWest.repaint();
-                    counter++;
-                }
-            });
-            t2.start();
-        }
+        frame.setLocationRelativeTo(null);
 
         //Fourth: Add control buttons & panel
         JButton exitButton = new JButton("Exit");
@@ -111,8 +179,8 @@ public class GameGUI {
             exitChoice = exit.getExitChoice();
             switch (exitChoice){
                 case 0:
-                    if(userTheme == 1){
-                        words.setGameList(userTheme);
+                    if(themeMenu.getThemeChoice() == 1){
+                        words.setGameList(themeMenu.getThemeChoice());
                     }
                     words.setRandomWord();
                     hangman.initializeHangman(words);
@@ -153,8 +221,8 @@ public class GameGUI {
                         exitChoice = exit.getExitChoice();
                         switch (exitChoice){
                             case 0:
-                                if(userTheme == 1){
-                                    words.setGameList(userTheme);
+                                if(themeMenu.getThemeChoice() == 1){
+                                    words.setGameList(themeMenu.getThemeChoice());
                                 }
                                 words.setRandomWord();
                                 hangman.initializeHangman(words);
@@ -181,8 +249,8 @@ public class GameGUI {
                         exitChoice = exit.getExitChoice();
                         switch (exitChoice){
                             case 0:
-                                if(userTheme == 1){
-                                    words.setGameList(userTheme);
+                                if(themeMenu.getThemeChoice() == 1){
+                                    words.setGameList(themeMenu.getThemeChoice());
                                 }
                                 words.setRandomWord();
                                 hangman.initializeHangman(words);
@@ -207,12 +275,12 @@ public class GameGUI {
         flowLayout.add(inputText);
         flowLayout.add(enterButton);
 
-
         frame.add(flowLayout, BorderLayout.SOUTH);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        frame.setVisible(false);
+
+        //Call StartMenu
+        startGame(frame, words, themeMenu, hangman);
 
     }
     private static final int FRAME_WIDTH = 1000;
