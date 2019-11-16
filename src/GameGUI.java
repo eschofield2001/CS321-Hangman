@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 
 /**
  * This class is the main controller for the project. It pieces together all of the components all controls the flow of the game.
@@ -12,10 +11,14 @@ public class GameGUI {
      * This method is responsible for putting together all of the components of the project and controlling the flow of the game.
      */
     public static void main(String[] args){
+        //Tester test = new Tester();
+        //test.testHangman(); - success
+        //test.testWordList(); - success
+        //test.testThemeSelectionGUI(); - success
+        //test.testExitMenu(); - success
         int userTheme;
         Hangman hangman = new Hangman();
         HangmanGUI hangmanGUI = new HangmanGUI();
-        ArrayList<Character> blanks = new ArrayList<>();
         ExitMenu exit = new ExitMenu();
 
         //Set up frame
@@ -102,29 +105,26 @@ public class GameGUI {
 
         //Fourth: Add control buttons & panel
         JButton exitButton = new JButton("Exit");
-        exitButton.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int exitChoice;
-                exit.presentExitMenu();
-                exitChoice = exit.getExitChoice();
-                switch (exitChoice){
-                    case 0:
-                        if(userTheme == 1){
-                            words.setGameList(userTheme);
-                        }
-                        words.setRandomWord();
-                        hangman.initializeHangman(words);
-                        break;
-                    case 2:
-                        //i don't know how to implement this yet
-                        break;
-                    case 3:
-                        System.exit(0);
-                        break;
-                    default:
-                        break;
-                }
+        exitButton.addActionListener(e -> {
+            int exitChoice;
+            exit.presentExitMenu();
+            exitChoice = exit.getExitChoice();
+            switch (exitChoice){
+                case 0:
+                    if(userTheme == 1){
+                        words.setGameList(userTheme);
+                    }
+                    words.setRandomWord();
+                    hangman.initializeHangman(words);
+                    break;
+                case 2:
+                    //i don't know how to implement this yet
+                    break;
+                case 3:
+                    System.exit(0);
+                    break;
+                default:
+                    break;
             }
         });
 
@@ -133,75 +133,73 @@ public class GameGUI {
         inputText.setText("Input");
 
         JButton enterButton = new JButton("Enter");
-        enterButton.addActionListener(new ActionListener(){
-           public void actionPerformed(ActionEvent e){
-               if((inputText.getText().length() > 1)){
-                   JOptionPane.showMessageDialog(null, "Please only enter one letter at a time.");
-               }
-               else if(!Character.isLetter(inputText.getText().charAt(0))){
-                   JOptionPane.showMessageDialog(null, "Please only enter letters.");
-               }
-               else{
-                   boolean inWord = hangman.isLetterPresent((inputText.getText().charAt(0)));
-                   if(inWord){
-                       //System.out.println(inputText.getText().charAt(0)); for testing
-                       hangman.updateBlanks(inputText.getText().charAt(0));
-                   /*finish when HangmanGUI is done
-                   hangmanGUI.updateCorrect();*/
-                       if(hangman.isBlanksFull()){
-                           int exitChoice;
-                           exit.presentExitMenuWin();
-                           exitChoice = exit.getExitChoice();
-                           switch (exitChoice){
-                               case 0:
-                                   if(userTheme == 1){
-                                       words.setGameList(userTheme);
-                                   }
-                                   words.setRandomWord();
-                                   hangman.initializeHangman(words);
-                                   break;
-                               case 2:
-                                   //i don't know how to implement this yet
-                                   break;
-                               case 3:
-                                   System.exit(0);
-                                   break;
-                               default:
-                                   break;
-                           }
-                       }
-                   }
-                   else{
-                       hangman.updateBox(inputText.getText().charAt(0));
-                       hangman.updateLimbs();
-                   /*finish when HangmanGUI is done
-                   hangmanGUI.updateIncorrect();*/
-                       if(hangman.isHangmanComplete()){
-                           int exitChoice;
-                           exit.presentExitMenuLose();
-                           exitChoice = exit.getExitChoice();
-                           switch (exitChoice){
-                               case 0:
-                                   if(userTheme == 1){
-                                       words.setGameList(userTheme);
-                                   }
-                                   words.setRandomWord();
-                                   hangman.initializeHangman(words);
-                                   break;
-                               case 2:
-                                   //i don't know how to implement this yet
-                                   break;
-                               case 3:
-                                   System.exit(0);
-                                   break;
-                               default:
-                                   break;
-                           }
-                       }
-                   }
-               }
-               inputText.setText("");
-           }
+        enterButton.addActionListener(e -> {
+            if((inputText.getText().length() > 1)){
+                JOptionPane.showMessageDialog(null, "Please only enter one letter at a time.");
+            }
+            else if(!Character.isLetter(inputText.getText().charAt(0))){
+                JOptionPane.showMessageDialog(null, "Please only enter letters.");
+            }
+            else{
+                boolean inWord = hangman.isLetterPresent((inputText.getText().charAt(0)));
+                if(inWord){
+                    //System.out.println(inputText.getText().charAt(0)); for testing
+                    hangman.updateBlanks(inputText.getText().charAt(0));
+                //finish when HangmanGUI is done
+                //hangmanGUI.updateCorrect();
+                    if(hangman.isBlanksFull()){
+                        int exitChoice;
+                        exit.presentExitMenuWin();
+                        exitChoice = exit.getExitChoice();
+                        switch (exitChoice){
+                            case 0:
+                                if(userTheme == 1){
+                                    words.setGameList(userTheme);
+                                }
+                                words.setRandomWord();
+                                hangman.initializeHangman(words);
+                                break;
+                            case 2:
+                                //i don't know how to implement this yet
+                                break;
+                            case 3:
+                                System.exit(0);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+                else{
+                    hangman.updateBox(inputText.getText().charAt(0));
+                    hangman.updateLimbs();
+                //finish when HangmanGUI is done
+                //hangmanGUI.updateIncorrect();
+                    if(hangman.isHangmanComplete()){
+                        int exitChoice;
+                        exit.presentExitMenuLose();
+                        exitChoice = exit.getExitChoice();
+                        switch (exitChoice){
+                            case 0:
+                                if(userTheme == 1){
+                                    words.setGameList(userTheme);
+                                }
+                                words.setRandomWord();
+                                hangman.initializeHangman(words);
+                                break;
+                            case 2:
+                                //i don't know how to implement this yet
+                                break;
+                            case 3:
+                                System.exit(0);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
+            inputText.setText("");
         });
 
         JPanel flowLayout = new JPanel();
@@ -215,7 +213,6 @@ public class GameGUI {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-
 
     }
     private static final int FRAME_WIDTH = 1000;

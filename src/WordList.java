@@ -15,10 +15,19 @@ public class WordList {
     ArrayList<String> wordList;
 
     /**
-     * This is the constructor the for the WordList class, which initializes theme, word, and wordList.
+     * This is the constructor the for the WordList class, which initializes word and wordList.
      */
     public WordList(){
         word = null;
+        wordList = new ArrayList<String>();
+    }
+
+    /**
+     * This is the constructor for WordList which sets word = s and initializes wordList
+     * @param s String to use for testing
+     */
+    public WordList(String s){
+        word = s;
         wordList = new ArrayList<String>();
     }
 
@@ -82,7 +91,9 @@ public class WordList {
     public void setRandomWord(){
         //sets word to a random word from the list
         Random r = new Random();
-        word = wordList.get(Math.abs(r.nextInt(wordList.size())));
+        int randomIndex = (Math.abs(r.nextInt(wordList.size())));
+        word = wordList.get(randomIndex);
+        wordList.remove(randomIndex);
     }
 
     /**
@@ -107,7 +118,13 @@ public class WordList {
         return blanksList;
     }
 
-
+    /**
+     * Returns the ArrayList of Strings to be used in the game, to be used for testing
+     * @return wordList, list of strings that could be used in the game
+     */
+    public ArrayList<String> getWordList(){
+        return wordList;
+    }
 
 
 }

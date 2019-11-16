@@ -104,4 +104,37 @@ public class Hangman {
         return false;
     }
 
+    //For Testing********************************************************************************
+    /**
+     * Returns numLimbs, to be used for testing
+     * @return numLimbs, the number of limbs on the hangman
+     */
+    public int getNumLimbs(){
+        return numLimbs;
+    }
+
+    /**
+     * Returns blanks, to be used for testing
+     * @return blanks, ArrayList of Characters correctly guessed
+     */
+    public ArrayList<Character> getBlanks(){
+        return blanks;
+    }
+
+    /**
+     * Returns gWord, to be used for testing
+     * @return gWord, current String being used in the game
+     */
+    public String getgWord(){
+        return gWord;
+    }
+
+    /**
+     * Returns boxLetters, to be used for testing
+     * @return boxLetters, ArrayList of Characters incorrectly guessed
+     */
+    public ArrayList<Character> getBoxLetters(){
+        return boxLetters;
+    }
+
 }
