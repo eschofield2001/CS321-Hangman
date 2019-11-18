@@ -90,6 +90,10 @@ public class WordList {
      */
     public void setRandomWord(){
         //sets word to a random word from the list
+        if (wordList.size() < 1){
+            JOptionPane.showMessageDialog(null, "Sorry, there are no words left in this theme!", "Error", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+        }
         Random r = new Random();
         int randomIndex = (Math.abs(r.nextInt(wordList.size())));
         word = wordList.get(randomIndex);

@@ -67,8 +67,8 @@ public class GameGUI {
             t2.start();
         }
 
-        frame.setLocationRelativeTo(null);
         frame.pack();
+        frame.setLocationRelativeTo(null);
     }
 
     static public void startGame(JFrame frame, WordList w, ThemeSelectionGUI themeMenu, Hangman h){
@@ -186,7 +186,7 @@ public class GameGUI {
                     hangman.initializeHangman(words);
                     break;
                 case 2:
-                    //i don't know how to implement this yet
+                    JOptionPane.showMessageDialog(null, "Functionality has not been implemented yet!", "Error", JOptionPane.ERROR_MESSAGE);
                     break;
                 case 3:
                     System.exit(0);
@@ -228,7 +228,7 @@ public class GameGUI {
                                 hangman.initializeHangman(words);
                                 break;
                             case 2:
-                                //i don't know how to implement this yet
+                                JOptionPane.showMessageDialog(null, "Functionality has not been implemented yet!", "Error", JOptionPane.ERROR_MESSAGE);
                                 break;
                             case 3:
                                 System.exit(0);
@@ -256,7 +256,7 @@ public class GameGUI {
                                 hangman.initializeHangman(words);
                                 break;
                             case 2:
-                                //i don't know how to implement this yet
+                                JOptionPane.showMessageDialog(null, "Functionality has not been implemented yet!", "Error", JOptionPane.ERROR_MESSAGE);
                                 break;
                             case 3:
                                 System.exit(0);
