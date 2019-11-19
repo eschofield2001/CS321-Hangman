@@ -22,17 +22,32 @@ public class ShapeIcon implements Icon{
         this.height = height;
     }
 
+    /**
+     * Responsible for painting the shape
+     * @param c component
+     * @param g graphics component
+     * @param x x-coordinate
+     * @param y y-coordinate
+     */
     @Override
     public void paintIcon(Component c, Graphics g, int x, int y) {
         Graphics2D g2 = (Graphics2D) g;
         shape.draw(g2);
     }
 
+    /**
+     * Returns the icon's width
+     * @return width
+     */
     @Override
     public int getIconWidth() {
         return width;
     }
 
+    /**
+     * Returns the icon's height
+     * @return height
+     */
     @Override
     public int getIconHeight() {
         return height;

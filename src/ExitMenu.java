@@ -21,9 +21,47 @@ public class ExitMenu {
         String[] options = {"Play Again", "Back to Game", "Back to Menu", "Quit Game"};
         JComboBox menuOptions = new JComboBox(options);
 
-        JOptionPane.showMessageDialog(null, options, "Choose an Option", JOptionPane.QUESTION_MESSAGE);
+        JOptionPane.showMessageDialog(null, menuOptions, "Choose an Option", JOptionPane.QUESTION_MESSAGE);
 
         exitChoice = menuOptions.getSelectedIndex();
+    }
+
+    /**
+     * This method is responsible for displaying the menu when the user wins the game.
+     */
+    public void presentExitMenuWin(){
+        String[] options = {"Play Again", "Back to Menu", "Quit Game"};
+        JComboBox menuOptions = new JComboBox(options);
+
+        JOptionPane.showMessageDialog(null, menuOptions, "You Win!", JOptionPane.QUESTION_MESSAGE);
+        if (menuOptions.getSelectedIndex() == 0){
+            exitChoice = 0;
+        }
+        else if(menuOptions.getSelectedIndex() == 1){
+            exitChoice = 2;
+        }
+        else{
+            exitChoice = 3;
+        }
+    }
+
+    /**
+     * This method is responsible for displaying the menu when the user loses the game.
+     */
+    public void presentExitMenuLose(){
+        String[] options = {"Play Again", "Back to Menu", "Quit Game"};
+        JComboBox menuOptions = new JComboBox(options);
+
+        JOptionPane.showMessageDialog(null, menuOptions, "You Lose!", JOptionPane.QUESTION_MESSAGE);
+        if (menuOptions.getSelectedIndex() == 0){
+            exitChoice = 0;
+        }
+        else if(menuOptions.getSelectedIndex() == 1){
+            exitChoice = 2;
+        }
+        else{
+            exitChoice = 3;
+        }
     }
 
     /**

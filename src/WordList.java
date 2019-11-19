@@ -5,24 +5,29 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * This class acts like a list of words and is responsible for initializing the list, picking a random word, and
+ * creating a list of blank characters for the word.
+ */
 public class WordList {
-    // WordList will have access to txt files containing words to guess
-    // Only exception is Multi-player
-    // Each txt file will be named after each theme
-    // txt files will be named Classic.txt, UnderTheSea.txt, and Halloween.txt
-
     //0-classic, 1-multiplayer, 2-under the sea, 3-halloween
-    private int theme;
     String word;
     ArrayList<String> wordList;
 
-
     /**
-     * This is the constructor the for the WordList class, which initializes theme, word, and wordList.
+     * This is the constructor the for the WordList class, which initializes word and wordList.
      */
     public WordList(){
-        theme = -1;
         word = null;
+        wordList = new ArrayList<String>();
+    }
+
+    /**
+     * This is the constructor for WordList which sets word = s and initializes wordList
+     * @param s String to use for testing
+     */
+    public WordList(String s){
+        word = s;
         wordList = new ArrayList<String>();
     }
 
@@ -51,6 +56,7 @@ public class WordList {
             }
 
             try{
+                assert fileName != null;
                 infile = new FileReader(fileName);
             }
             catch(FileNotFoundException ex){
@@ -84,8 +90,14 @@ public class WordList {
      */
     public void setRandomWord(){
         //sets word to a random word from the list
+        if (wordList.size() < 1){
+            JOptionPane.showMessageDialog(null, "Sorry, there are no words left in this theme!", "Error", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+        }
         Random r = new Random();
-        word = wordList.get(Math.abs(r.nextInt(wordList.size())));
+        int randomIndex = (Math.abs(r.nextInt(wordList.size())));
+        word = wordList.get(randomIndex);
+        wordList.remove(randomIndex);
     }
 
     /**
@@ -110,7 +122,13 @@ public class WordList {
         return blanksList;
     }
 
-
+    /**
+     * Returns the ArrayList of Strings to be used in the game, to be used for testing
+     * @return wordList, list of strings that could be used in the game
+     */
+    public ArrayList<String> getWordList(){
+        return wordList;
+    }
 
 
 }

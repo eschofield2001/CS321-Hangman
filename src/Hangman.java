@@ -17,7 +17,7 @@ public class Hangman {
         numLimbs = 0;
         boxLetters = new ArrayList<>();
         blanks = new ArrayList<>();
-        gWord = null;
+        gWord = "";
     }
 
     /**
@@ -35,12 +35,15 @@ public class Hangman {
     public void initializeHangmanStart() {
         gWord = "HangmanStart";
         numLimbs = 0;
-        blanks.add('H');
-        blanks.add('A');
-        blanks.add('N');
-        blanks.add('G');
-        for(int i = 1; i <= 8; i++)
+        for(int i = 0; i < gWord.length(); i++){
             blanks.add('_');
+        }
+        updateBlanks('H');
+        updateBlanks('A');
+        updateBlanks('N');
+        updateBlanks('G');
+        updateBlanks('M');
+
     }
 
     /**
@@ -102,6 +105,39 @@ public class Hangman {
                 return true;
         }
         return false;
+    }
+
+    //For Testing********************************************************************************
+    /**
+     * Returns numLimbs, to be used for testing
+     * @return numLimbs, the number of limbs on the hangman
+     */
+    public int getNumLimbs(){
+        return numLimbs;
+    }
+
+    /**
+     * Returns blanks, to be used for testing
+     * @return blanks, ArrayList of Characters correctly guessed
+     */
+    public ArrayList<Character> getBlanks(){
+        return blanks;
+    }
+
+    /**
+     * Returns gWord, to be used for testing
+     * @return gWord, current String being used in the game
+     */
+    public String getgWord(){
+        return gWord;
+    }
+
+    /**
+     * Returns boxLetters, to be used for testing
+     * @return boxLetters, ArrayList of Characters incorrectly guessed
+     */
+    public ArrayList<Character> getBoxLetters(){
+        return boxLetters;
     }
 
 }
