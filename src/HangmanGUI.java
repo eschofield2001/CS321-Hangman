@@ -1,11 +1,12 @@
 
+import javax.swing.*;
 import java.awt.geom.Point2D;
 import java.awt.geom.*;
 import java.awt.*;
 
-public class HangmanGUI {
-    public void draw(Graphics2D g2)
-    {
+public class HangmanGUI extends JPanel{
+    public void paintComponent(Graphics g) {
+        Graphics2D g2 = (Graphics2D)g;
         // Create the gallows
 
         // Define each point
@@ -36,27 +37,27 @@ public class HangmanGUI {
         // Create the hangman limbs
 
         // Hangman's head
-        Ellipse2D.Double head = new Ellipse2D.Double(200, 180, 20, 20);
+        Ellipse2D.Double head = new Ellipse2D.Double(190, 160, 20, 20);
 
         // Hangman's right arm starting and ending points
-        Point2D.Double ra1 = new Point2D.Double(200, 200);
-        Point2D.Double ra2 = new Point2D.Double(300, 250);
+        Point2D.Double ra1 = new Point2D.Double(200, 180);
+        Point2D.Double ra2 = new Point2D.Double(300, 230);
 
         // Hangman's left arm starting and ending points
-        Point2D.Double la1 = new Point2D.Double(200, 200);
-        Point2D.Double la2 = new Point2D.Double(100, 250);
+        Point2D.Double la1 = new Point2D.Double(200, 180);
+        Point2D.Double la2 = new Point2D.Double(100, 230);
 
         // Hangman's body starting and ending points
-        Point2D.Double b1 = new Point2D.Double(200, 200);
-        Point2D.Double b2 = new Point2D.Double(200, 400);
+        Point2D.Double b1 = new Point2D.Double(200, 180);
+        Point2D.Double b2 = new Point2D.Double(200, 380);
 
         // Hangman's right leg starting and ending points
-        Point2D.Double rl1 = new Point2D.Double(200, 400);
-        Point2D.Double rl2 = new Point2D.Double(300, 450);
+        Point2D.Double rl1 = new Point2D.Double(200, 380);
+        Point2D.Double rl2 = new Point2D.Double(300, 430);
 
         // Hangman's left leg starting and ending points
-        Point2D.Double ll1 = new Point2D.Double(200, 400);
-        Point2D.Double ll2 = new Point2D.Double(100, 450);
+        Point2D.Double ll1 = new Point2D.Double(200, 380);
+        Point2D.Double ll2 = new Point2D.Double(100, 430);
 
         // Fill the lines
         Line2D.Double rightArm = new Line2D.Double(ra1, ra2);
