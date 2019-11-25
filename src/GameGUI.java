@@ -71,7 +71,7 @@ public class GameGUI {
         frame.setLocationRelativeTo(null);
     }
 
-    static public void startGame(JFrame frame, WordList w, ThemeSelectionGUI themeMenu, Hangman h){
+    static public void startGame(JFrame frame, WordList w, ThemeSelectionGUI themeMenu, Hangman h, HangmanGUI hangmanGUI){
         JFrame start = new JFrame("Hangman Start", null);
         Dimension d = new Dimension();
         d.setSize(FRAME_WIDTH, FRAME_HEIGHT);
@@ -79,6 +79,7 @@ public class GameGUI {
         start.setLayout(new BorderLayout());
 
         h.initializeHangmanStart();
+        hangmanGUI.initializeHangmanView(h);
 
         final int FIELD_WIDTH = 10;
         JTextField inputText = new JTextField(FIELD_WIDTH);
@@ -96,9 +97,10 @@ public class GameGUI {
                 boolean inWord = h.isLetterPresent((inputText.getText().charAt(0)));
                 if(inWord){
                     //System.out.println(inputText.getText().charAt(0)); for testing
+                    h.updateBox(inputText.getText().charAt(0));
                     h.updateBlanks(inputText.getText().charAt(0));
                     //finish when HangmanGUI is done
-                    //hangmanGUI.updateCorrect();
+                    hangmanGUI.updateStateCorrect(h, inputText.getText().charAt(0));
                     if(h.isBlanksFull()){
                         start.dispose();
 
@@ -108,6 +110,8 @@ public class GameGUI {
                         w.setRandomWord();
 
                         h.initializeHangman(w);
+                        hangmanGUI.initializeHangmanView(h);
+                        frame.add(hangmanGUI.getGamePanel(), BorderLayout.CENTER);
 
                         setAnimations(frame, themeMenu);
                         frame.setVisible(true);
@@ -117,7 +121,7 @@ public class GameGUI {
                     h.updateBox(inputText.getText().charAt(0));
                     h.updateLimbs();
                     //finish when HangmanGUI is done
-                    //hangmanGUI.updateIncorrect();
+                    hangmanGUI.updateStateIncorrect(h, inputText.getText().charAt(0));
                     if(h.isHangmanComplete()){
                         start.dispose();
 
@@ -127,6 +131,8 @@ public class GameGUI {
                         w.setRandomWord();
 
                         h.initializeHangman(w);
+                        hangmanGUI.initializeHangmanView(h);
+                        frame.add(hangmanGUI.getGamePanel(), BorderLayout.CENTER);
 
                         setAnimations(frame, themeMenu);
 
@@ -142,6 +148,7 @@ public class GameGUI {
         flowLayout.add(enterButton);
 
         start.add(flowLayout, BorderLayout.SOUTH);
+        start.add(hangmanGUI.getGamePanel(), BorderLayout.CENTER);
         start.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         start.pack();
         start.setLocationRelativeTo(null);
@@ -212,9 +219,10 @@ public class GameGUI {
                 boolean inWord = hangman.isLetterPresent((inputText.getText().charAt(0)));
                 if(inWord){
                     //System.out.println(inputText.getText().charAt(0)); for testing
+                    hangman.updateBox(inputText.getText().charAt(0));
                     hangman.updateBlanks(inputText.getText().charAt(0));
                 //finish when HangmanGUI is done
-                //hangmanGUI.updateCorrect();
+                    hangmanGUI.updateStateCorrect(hangman, inputText.getText().charAt(0));
                     if(hangman.isBlanksFull()){
                         int exitChoice;
                         exit.presentExitMenuWin();
@@ -242,7 +250,7 @@ public class GameGUI {
                     hangman.updateBox(inputText.getText().charAt(0));
                     hangman.updateLimbs();
                 //finish when HangmanGUI is done
-                //hangmanGUI.updateIncorrect();
+                    hangmanGUI.updateStateIncorrect(hangman, inputText.getText().charAt(0));
                     if(hangman.isHangmanComplete()){
                         int exitChoice;
                         exit.presentExitMenuLose();
@@ -280,7 +288,7 @@ public class GameGUI {
         frame.setVisible(false);
 
         //Call StartMenu
-        startGame(frame, words, themeMenu, hangman);
+        startGame(frame, words, themeMenu, hangman, hangmanGUI);
 
     }
     private static final int FRAME_WIDTH = 1000;
