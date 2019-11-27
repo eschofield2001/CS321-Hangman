@@ -77,7 +77,7 @@ public class HangmanGUI {
         //Update the limbs of the hangman.
         hangmanPic.setCurrentLimbs(h.getNumLimbs());
         hangmanPic.repaint();
-        hangmanPic.setSize(30, 30);
+        hangmanPic.setSize(500, 500);
     }
 
     /**
@@ -85,10 +85,14 @@ public class HangmanGUI {
      * @param h The Hangman object used to initialize the view.
      */
     public void initializeHangmanView(Hangman h) {
-        //Remove any previous components boxPanel and blanksPanel
+        //Remove any previous components from boxPanel and blanksPanel
         boxPanel.removeAll();
         blanksPanel.removeAll();
         blankLabels.clear();
+
+        hangmanPic.setSize(500, 500);
+        blanksPanel.setSize(700, 50);
+        boxPanel.setSize(250, 250);
 
         //Reset limb count of hangman
         int cl = 0;
@@ -115,6 +119,7 @@ public class HangmanGUI {
             }
         }
         gamePanel.add(blanksPanel);
+        gamePanel.revalidate();
     }
 
     /**

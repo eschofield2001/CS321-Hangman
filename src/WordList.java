@@ -110,7 +110,7 @@ public class WordList {
 
     /**
      * Returns a list of underscores which will be used to display how many blank characters are left for User to find
-     * @return ArrayList<Character> blanksList - A list of underscores: "_"
+     * @return ArrayList<> blanksList - A list of underscores: "_"
      */
     public ArrayList<Character> getBlanks(){
         ArrayList<Character> blanksList = new ArrayList<>();

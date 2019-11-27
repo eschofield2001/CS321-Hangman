@@ -93,6 +93,9 @@ public class GameGUI {
             else if(!Character.isLetter(inputText.getText().charAt(0))){
                 JOptionPane.showMessageDialog(null, "Please only enter letters.");
             }
+            else if(h.inBoxLetters(inputText.getText().charAt(0))){
+                JOptionPane.showMessageDialog(null, "This letter has already been entered.");
+            }
             else{
                 boolean inWord = h.isLetterPresent((inputText.getText().charAt(0)));
                 if(inWord){
@@ -102,6 +105,7 @@ public class GameGUI {
                     //finish when HangmanGUI is done
                     hangmanGUI.updateStateCorrect(h, inputText.getText().charAt(0));
                     if(h.isBlanksFull()){
+                        System.out.println("hello");
                         start.dispose();
 
                         themeMenu.displayThemeMenu();
@@ -175,6 +179,7 @@ public class GameGUI {
         Dimension d = new Dimension();
         d.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         frame.setSize(d);
+        //frame.setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
         frame.setLayout(new BorderLayout());
         frame.setLocationRelativeTo(null);
 
@@ -191,6 +196,7 @@ public class GameGUI {
                     }
                     words.setRandomWord();
                     hangman.initializeHangman(words);
+                    hangmanGUI.initializeHangmanView(hangman);
                     break;
                 case 2:
                     JOptionPane.showMessageDialog(null, "Functionality has not been implemented yet!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -215,6 +221,9 @@ public class GameGUI {
             else if(!Character.isLetter(inputText.getText().charAt(0))){
                 JOptionPane.showMessageDialog(null, "Please only enter letters.");
             }
+            else if(hangman.inBoxLetters(inputText.getText().charAt(0))){
+                JOptionPane.showMessageDialog(null, "This letter has already been entered.");
+            }
             else{
                 boolean inWord = hangman.isLetterPresent((inputText.getText().charAt(0)));
                 if(inWord){
@@ -234,6 +243,7 @@ public class GameGUI {
                                 }
                                 words.setRandomWord();
                                 hangman.initializeHangman(words);
+                                hangmanGUI.initializeHangmanView(hangman);
                                 break;
                             case 2:
                                 JOptionPane.showMessageDialog(null, "Functionality has not been implemented yet!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -262,6 +272,7 @@ public class GameGUI {
                                 }
                                 words.setRandomWord();
                                 hangman.initializeHangman(words);
+                                hangmanGUI.initializeHangmanView(hangman);
                                 break;
                             case 2:
                                 JOptionPane.showMessageDialog(null, "Functionality has not been implemented yet!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -297,7 +308,8 @@ public class GameGUI {
     private static final int SHAPE_HEIGHT = 200;
     private static final int ICON_WIDTH = 400;
     private static final int ICON_HEIGHT = 400;
-
+    //private static final int MIN_WIDTH = 1200;
+    //private static final int MIN_HEIGHT = 700;
 }
 
 

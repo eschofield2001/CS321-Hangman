@@ -27,6 +27,7 @@ public class Hangman {
         gWord = w.getWord();
         numLimbs = 0;
         blanks = w.getBlanks();
+        boxLetters.clear();
     }
 
     /**
@@ -35,6 +36,8 @@ public class Hangman {
     public void initializeHangmanStart() {
         gWord = "HangmanStart";
         numLimbs = 0;
+        boxLetters.clear();
+        blanks.clear();
         for(int i = 0; i < gWord.length(); i++){
             blanks.add('_');
         }
@@ -102,6 +105,14 @@ public class Hangman {
     public boolean isLetterPresent(Character c) {
         for(int i = 0; i < gWord.length(); i++) {
             if(Character.toUpperCase(c) == Character.toUpperCase(gWord.charAt(i)))
+                return true;
+        }
+        return false;
+    }
+
+    public boolean inBoxLetters(Character c) {
+        for(int i = 0; i < boxLetters.size(); i++) {
+            if(Character.toUpperCase(c) == Character.toUpperCase(boxLetters.get(i)))
                 return true;
         }
         return false;
