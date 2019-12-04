@@ -1,3 +1,5 @@
+package edu.uah.cs.cs321.hangman.view;
+import edu.uah.cs.cs321.hangman.model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,7 +39,6 @@ public class HangmanGUI {
         blanksPanel.setLayout(new FlowLayout());
 
         blankLabels = new ArrayList<>();
-
     }
 
     /**
@@ -58,7 +59,6 @@ public class HangmanGUI {
             if(Character.toUpperCase(c) == Character.toUpperCase(h.getgWord().charAt(i)))
                 blankLabels.get(i).setIcon(new LetterIcon(Character.toUpperCase(c), 50, 50, 45));
         }
-
     }
 
     /**
@@ -94,28 +94,38 @@ public class HangmanGUI {
         blanksPanel.setSize(700, 50);
         boxPanel.setSize(250, 250);
 
+        //Add letters to box if needed
+        if(h.getBoxLetters().size() != 0) {
+            for(int i = 0; i < h.getBoxLetters().size(); i++) {
+                JLabel letter = new JLabel();
+                letter.setPreferredSize(new Dimension(30, 30));
+                letter.setMaximumSize(new Dimension(30, 30));
+                boxPanel.add(letter);
+                letter.setIcon(new LetterIcon(Character.toUpperCase(h.getBoxLetters().get(i)), 30, 30, 20));
+            }
+        }
+        gamePanel.add(boxPanel);
+
         //Reset limb count of hangman
         int cl = 0;
         hangmanPic.setCurrentLimbs(cl);
-
-        gamePanel.add(boxPanel);
         gamePanel.add(hangmanPic);
 
-        //Create view of blanks.
+        //Create view of blanks
         for(int i = 0; i < h.getBlanks().size(); i++) {
             if(h.getBlanks().get(i) == '_') {
-                JLabel label = new JLabel(new LetterIcon('_', 40, 40, 50));
-                label.setPreferredSize(new Dimension(50, 50));
-                label.setMaximumSize(new Dimension(50, 50));
-                blankLabels.add(label);
-                blanksPanel.add(label);
+                JLabel blank = new JLabel(new LetterIcon('_', 40, 40, 50));
+                blank.setPreferredSize(new Dimension(50, 50));
+                blank.setMaximumSize(new Dimension(50, 50));
+                blankLabels.add(blank);
+                blanksPanel.add(blank);
             }
             else {
-                JLabel label = new JLabel(new LetterIcon(Character.toUpperCase(h.getBlanks().get(i)), 50, 50, 45));
-                label.setPreferredSize(new Dimension(50, 50));
-                label.setMaximumSize(new Dimension(50, 50));
-                blankLabels.add(label);
-                blanksPanel.add(label);
+                JLabel blank = new JLabel(new LetterIcon(Character.toUpperCase(h.getBlanks().get(i)), 50, 50, 45));
+                blank.setPreferredSize(new Dimension(50, 50));
+                blank.setMaximumSize(new Dimension(50, 50));
+                blankLabels.add(blank);
+                blanksPanel.add(blank);
             }
         }
         gamePanel.add(blanksPanel);
@@ -126,7 +136,5 @@ public class HangmanGUI {
      * Returns a JPanel of the view.
      * @return gamePanel, JPanel of the view.
      */
-    public JPanel getGamePanel() {
-        return gamePanel;
-    }
+    public JPanel getGamePanel() { return gamePanel; }
 }

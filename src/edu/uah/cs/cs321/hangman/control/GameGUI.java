@@ -1,3 +1,6 @@
+package edu.uah.cs.cs321.hangman.control;
+import edu.uah.cs.cs321.hangman.view.*;
+import edu.uah.cs.cs321.hangman.model.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -7,6 +10,11 @@ import java.awt.event.*;
  */
 public class GameGUI {
 
+    /**
+     * Sets the bubble or ghost animations for the frame depending on the selected theme.
+     * @param frame The JFrame that the animations will be added to.
+     * @param themeMenu The ThemeSelectionGUI that will determine which animations will be used.
+     */
     static public void setAnimations(JFrame frame, ThemeSelectionGUI themeMenu){
         if(themeMenu.getThemeChoice() == 2 || themeMenu.getThemeChoice() == 3) {
             final MoveableShape shapeEAST;
@@ -38,7 +46,7 @@ public class GameGUI {
                         counter = 0;
                     }
                     if (shapeEAST.getY() == 0) {
-                        shapeEAST.setY(400);
+                        shapeEAST.setY(frame.getHeight());
                     }
                     shapeEAST.translate(dx, -1);
                     labelEast.repaint();
@@ -57,7 +65,7 @@ public class GameGUI {
                         counter = 0;
                     }
                     if (shapeWEST.getY() == 0) {
-                        shapeWEST.setY(400);
+                        shapeWEST.setY(frame.getHeight());
                     }
                     shapeWEST.translate(dx, -1);
                     labelWest.repaint();
@@ -71,6 +79,14 @@ public class GameGUI {
         frame.setLocationRelativeTo(null);
     }
 
+    /**
+     * Creates and displays the start menu, and afterwards displays the theme menu and main game frame.
+     * @param frame JFrame in which the main game will be displayed.
+     * @param w WordList that will use themeMenu to choose a word.
+     * @param themeMenu ThemSelectionGUI that will display the theme menu and get theme choice from the user.
+     * @param h Hangman model that will initialize hangmanGUI.
+     * @param hangmanGUI The view that will use the model h in oder to display the game.
+     */
     static public void startGame(JFrame frame, WordList w, ThemeSelectionGUI themeMenu, Hangman h, HangmanGUI hangmanGUI){
         JFrame start = new JFrame("Hangman Start", null);
         Dimension d = new Dimension();
@@ -102,10 +118,8 @@ public class GameGUI {
                     //System.out.println(inputText.getText().charAt(0)); for testing
                     h.updateBox(inputText.getText().charAt(0));
                     h.updateBlanks(inputText.getText().charAt(0));
-                    //finish when HangmanGUI is done
                     hangmanGUI.updateStateCorrect(h, inputText.getText().charAt(0));
                     if(h.isBlanksFull()){
-                        System.out.println("hello");
                         start.dispose();
 
                         themeMenu.displayThemeMenu();
@@ -124,7 +138,6 @@ public class GameGUI {
                 else{
                     h.updateBox(inputText.getText().charAt(0));
                     h.updateLimbs();
-                    //finish when HangmanGUI is done
                     hangmanGUI.updateStateIncorrect(h, inputText.getText().charAt(0));
                     if(h.isHangmanComplete()){
                         start.dispose();
@@ -161,6 +174,7 @@ public class GameGUI {
 
     /**
      * This method is responsible for putting together all of the components of the project and controlling the flow of the game.
+     * @param args Needed for main class.
      */
     public static void main(String[] args){
         //Tester test = new Tester();
@@ -179,7 +193,7 @@ public class GameGUI {
         Dimension d = new Dimension();
         d.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         frame.setSize(d);
-        //frame.setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
+        frame.setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
         frame.setLayout(new BorderLayout());
         frame.setLocationRelativeTo(null);
 
@@ -199,7 +213,12 @@ public class GameGUI {
                     hangmanGUI.initializeHangmanView(hangman);
                     break;
                 case 2:
-                    JOptionPane.showMessageDialog(null, "Functionality has not been implemented yet!", "Error", JOptionPane.ERROR_MESSAGE);
+                    frame.setVisible(false);
+                    if(themeMenu.getThemeChoice() == 2 || themeMenu.getThemeChoice() == 3) {
+                        frame.getContentPane().remove(2);
+                        frame.getContentPane().remove(2);
+                    }
+                    startGame(frame, words, themeMenu, hangman, hangmanGUI);
                     break;
                 case 3:
                     System.exit(0);
@@ -230,7 +249,6 @@ public class GameGUI {
                     //System.out.println(inputText.getText().charAt(0)); for testing
                     hangman.updateBox(inputText.getText().charAt(0));
                     hangman.updateBlanks(inputText.getText().charAt(0));
-                //finish when HangmanGUI is done
                     hangmanGUI.updateStateCorrect(hangman, inputText.getText().charAt(0));
                     if(hangman.isBlanksFull()){
                         int exitChoice;
@@ -246,7 +264,12 @@ public class GameGUI {
                                 hangmanGUI.initializeHangmanView(hangman);
                                 break;
                             case 2:
-                                JOptionPane.showMessageDialog(null, "Functionality has not been implemented yet!", "Error", JOptionPane.ERROR_MESSAGE);
+                                frame.setVisible(false);
+                                if(themeMenu.getThemeChoice() == 2 || themeMenu.getThemeChoice() == 3) {
+                                    frame.getContentPane().remove(2);
+                                    frame.getContentPane().remove(2);
+                                }
+                                startGame(frame, words, themeMenu, hangman, hangmanGUI);
                                 break;
                             case 3:
                                 System.exit(0);
@@ -259,7 +282,6 @@ public class GameGUI {
                 else{
                     hangman.updateBox(inputText.getText().charAt(0));
                     hangman.updateLimbs();
-                //finish when HangmanGUI is done
                     hangmanGUI.updateStateIncorrect(hangman, inputText.getText().charAt(0));
                     if(hangman.isHangmanComplete()){
                         int exitChoice;
@@ -275,7 +297,12 @@ public class GameGUI {
                                 hangmanGUI.initializeHangmanView(hangman);
                                 break;
                             case 2:
-                                JOptionPane.showMessageDialog(null, "Functionality has not been implemented yet!", "Error", JOptionPane.ERROR_MESSAGE);
+                                frame.setVisible(false);
+                                if(themeMenu.getThemeChoice() == 2 || themeMenu.getThemeChoice() == 3) {
+                                    frame.getContentPane().remove(2);
+                                    frame.getContentPane().remove(2);
+                                }
+                                startGame(frame, words, themeMenu, hangman, hangmanGUI);
                                 break;
                             case 3:
                                 System.exit(0);
@@ -308,8 +335,10 @@ public class GameGUI {
     private static final int SHAPE_HEIGHT = 200;
     private static final int ICON_WIDTH = 400;
     private static final int ICON_HEIGHT = 400;
-    //private static final int MIN_WIDTH = 1200;
-    //private static final int MIN_HEIGHT = 700;
+    private static final int MIN_WIDTH = 1400;
+    private static final int MIN_HEIGHT = 700;
 }
+
+
 
 

@@ -1,3 +1,4 @@
+package edu.uah.cs.cs321.hangman.model;
 import java.util.ArrayList;
 
 /**
@@ -22,6 +23,7 @@ public class Hangman {
 
     /**
      * Initializes the attributes af a Hangman using the information of a WordList.
+     * @param w Wordlist that is used to initialize the hangman.
      */
     public void initializeHangman(WordList w ) {
         gWord = w.getWord();
@@ -47,6 +49,11 @@ public class Hangman {
         updateBlanks('G');
         updateBlanks('M');
 
+        updateBox('H');
+        updateBox('A');
+        updateBox('N');
+        updateBox('G');
+        updateBox('M');
     }
 
     /**
@@ -98,9 +105,9 @@ public class Hangman {
     }
 
     /**
-     * Checks if char c is present anywhere in gWord.
-     * @param c char that is used to check gWord.
-     * @return true if char c is found anywhere in gWord or false otherwise.
+     * Checks if Character c is present anywhere in gWord.
+     * @param c Character that is used to check gWord.
+     * @return true if Character c is found anywhere in gWord or false otherwise.
      */
     public boolean isLetterPresent(Character c) {
         for(int i = 0; i < gWord.length(); i++) {
@@ -110,6 +117,11 @@ public class Hangman {
         return false;
     }
 
+    /**
+     * Checks if Character c is in boxLetters.
+     * @param c Character that is used to check boxLetters.
+     * @return true if Character c is found anywhere in boxLetters or false otherwise.
+     */
     public boolean inBoxLetters(Character c) {
         for(int i = 0; i < boxLetters.size(); i++) {
             if(Character.toUpperCase(c) == Character.toUpperCase(boxLetters.get(i)))
@@ -118,7 +130,6 @@ public class Hangman {
         return false;
     }
 
-    //For Testing********************************************************************************
     /**
      * Returns numLimbs, to be used for testing
      * @return numLimbs, the number of limbs on the hangman

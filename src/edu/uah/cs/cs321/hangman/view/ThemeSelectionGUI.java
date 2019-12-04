@@ -1,3 +1,4 @@
+package edu.uah.cs.cs321.hangman.view;
 import javax.swing.*;
 
 /**
@@ -10,7 +11,7 @@ public class ThemeSelectionGUI {
     /**
      * Constructor for ThemeSelectionGUI that initializes themeChoice to -1
      */
-    ThemeSelectionGUI(){
+    public ThemeSelectionGUI(){
         themeChoice = -1;
     }
 

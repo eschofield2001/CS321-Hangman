@@ -1,3 +1,5 @@
+package edu.uah.cs.cs321.hangman.view;
+
 public abstract class AbstractMoveableShape implements MoveableShape {
     private int x;
     private int y;

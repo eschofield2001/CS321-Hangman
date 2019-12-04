@@ -1,3 +1,4 @@
+package edu.uah.cs.cs321.hangman.model;
 import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -36,6 +37,7 @@ public class WordList {
      * @param t integer corresponding to the theme selection: 0-classic, 1-multiplayer, 2-under the sea, 3-halloween
      */
     public void setGameList(int t){
+        wordList.clear();
         String fileName;
         FileReader infile;
 
@@ -80,7 +82,20 @@ public class WordList {
 
         //If the User chooses Multi-player, this will run and have the User enter a word
         else{
-            wordList.add(JOptionPane.showInputDialog(null, "Enter the word you want your opponent to guess!", "Multi-player", JOptionPane.QUESTION_MESSAGE));
+            String word;
+            boolean valid;
+            do {
+                valid = true;
+                word = JOptionPane.showInputDialog(null, "Enter the word you want your opponent to guess!", "Multi-player", JOptionPane.QUESTION_MESSAGE);
+                for(int i = 0; i < word.length(); i++) {
+                    if (!Character.isLetter(word.charAt(i))) {
+                        JOptionPane.showMessageDialog(null, "Please only enter letters.");
+                        valid = false;
+                        break;
+                    }
+                }
+            } while(!valid);
+            wordList.add(word);
         }
 
     }
@@ -110,7 +125,7 @@ public class WordList {
 
     /**
      * Returns a list of underscores which will be used to display how many blank characters are left for User to find
-     * @return ArrayList<> blanksList - A list of underscores: "_"
+     * @return ArrayList blanksList - A list of underscores: "_"
      */
     public ArrayList<Character> getBlanks(){
         ArrayList<Character> blanksList = new ArrayList<>();

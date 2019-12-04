@@ -1,22 +1,30 @@
-import javax.swing.*;
+package edu.uah.cs.cs321.hangman.view;
 import java.awt.*;
+import java.util.*;
+import javax.swing.*;
 
-public class LetterIcon implements Icon {
-
+/**
+ * An icon that contains a moveable shape
+ */
+public class ShapeIcon implements Icon{
     private int width;
     private int height;
-    private Character currentLetter;
-    private int fontSize;
+    private MoveableShape shape;
 
-    public LetterIcon(Character c, int width, int height, int fontSize) {
+    /**
+     * Constructs a ShapeIcon item
+     * @param shape a Shape that implements MoveableShape
+     * @param width width of the shape
+     * @param height height of the shape
+     */
+    public ShapeIcon(MoveableShape shape, int width, int height){
+        this.shape = shape;
         this.width = width;
         this.height = height;
-        this.currentLetter = c;
-        this.fontSize = fontSize;
     }
 
     /**
-     * Responsible for painting the letter
+     * Responsible for painting the shape
      * @param c component
      * @param g graphics component
      * @param x x-coordinate
@@ -25,12 +33,7 @@ public class LetterIcon implements Icon {
     @Override
     public void paintIcon(Component c, Graphics g, int x, int y) {
         Graphics2D g2 = (Graphics2D) g;
-        Font font = new Font("Serif", Font.BOLD, fontSize);
-
-        g2.setFont(font);
-        g2.setColor(Color.black);
-
-        g2.drawString(currentLetter.toString(), width/4, (3 * height)/4);
+        shape.draw(g2);
     }
 
     /**

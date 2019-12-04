@@ -1,3 +1,4 @@
+package edu.uah.cs.cs321.hangman.view;
 import javax.swing.*;
 
 /**
@@ -10,7 +11,7 @@ public class ExitMenu {
     /**
      * Constructor for ExitMenu that initializes exitChoice to -1
      */
-    ExitMenu(){
+    public ExitMenu(){
         exitChoice = -1;
     }
 

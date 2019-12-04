@@ -1,3 +1,4 @@
+package edu.uah.cs.cs321.hangman.view;
 import java.awt.*;
 import java.awt.geom.*;
 
@@ -28,8 +29,6 @@ public class BubbleShape extends AbstractMoveableShape {
     @Override
     public void draw(Graphics2D g2) {
         Ellipse2D.Double bubble = new Ellipse2D.Double(super.getX(), super.getY(), width, height);
-       // g2.setColor(new Color(0, 102, 204));
-        //g2.fillRect(x, y, width, height);
         g2.setColor(new Color(51,153,255));
         g2.fill(bubble);
     }

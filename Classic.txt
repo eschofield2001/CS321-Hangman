@@ -1,4 +1,3 @@
 Alphabet
-Window
 Tree
 Queue

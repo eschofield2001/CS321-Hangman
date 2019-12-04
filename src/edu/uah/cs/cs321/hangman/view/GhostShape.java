@@ -1,3 +1,4 @@
+package edu.uah.cs.cs321.hangman.view;
 import java.awt.*;
 import java.awt.geom.*;
 

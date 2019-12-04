@@ -1,3 +1,6 @@
+import edu.uah.cs.cs321.hangman.view.*;
+import edu.uah.cs.cs321.hangman.model.*;
+
 import java.util.ArrayList;
 
 /**
